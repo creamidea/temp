@@ -2,7 +2,7 @@
 
 'use strict'
 
-var spawnSync = require('child_process').spawnSync
+var child_process = require('child_process')
 
 class Deployer {
   // branch 分支的名称
@@ -20,8 +20,8 @@ class Deployer {
       process.exit(0)
     }
     var comment = process.argv[2]
-    this['exec-sh'](this['push-github-master'](comment))
-    this['exec-sh'](this['push-github-articles'](comment))
+    var A = child_process.fork(this['exec-sh'](this['push-github-master'](comment)))
+    var B = child_process.fork(this['exec-sh'](this['push-github-articles'](comment)))
   }
 
   'exec-sh' (sh) {
