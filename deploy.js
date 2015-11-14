@@ -51,21 +51,25 @@ class Deployer {
 
   'push-github-articles' (comment) {
     if (!comment) var comment = "For Deploy " + (new Date())
+    var branch = 'articles'
     return [
       `cd ${this.root}`,
+      `git checkout ${branch}`,
       `git add _articles static`,
       ['git', 'commit', '-m', `"${comment}"`],
-      `git push origin articles`
+      `git push origin ${branch}`
     ]
   }
 
   'push-github-master' (comment) {
     if (!comment) var comment = "For Deploy " + (new Date())
+    var branch = 'master'
     return [
       `cd ${this.root}/public`,
+      `git checkout ${branch}`,
       `git add .`,
       ['git', 'commit', '-m', `"${comment}"`],
-      `git push origin master`
+      `git push origin ${branch}`
     ]
   }
 
