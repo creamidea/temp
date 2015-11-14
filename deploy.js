@@ -3,17 +3,13 @@
 'use strict'
 
 var util = require('util')
+var child_process = require('child_process')
 var spawnSync = require('child_process').spawnSync
 
 class Deployer {
   // branch 分支的名称
   // dirname 站点（blog）的路径在哪里
-  constructor(branch, dirname) {
-    if (!branch) {
-      console.log('Please tell me which branch you want to push.');
-      console.log('e.g. node deploy.js articles');
-      process.exit(0)
-    }
+  constructor() {
     if(!dirname) var dirname = __dirname
     this.root = dirname
   }
@@ -73,11 +69,12 @@ class Deployer {
       `git push origin master`
     ]
   }
+
 }
 
 (function() {
   'use strict'
   // console.log = function () {}
-  var d = new Deployer('articles')
+  var d = new Deployer
   d.start()
 })()
