@@ -22,7 +22,7 @@ class Deployer {
       process.exit(0)
     }
     var comment = process.argv[2]
-    this['exec-sh'](this['push-github-master'](comment))
+    child_process.fork(this['exec-sh'](this['push-github-master'](comment)))
     this['exec-sh'](this['push-github-articles'](comment))
   }
 
