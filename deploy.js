@@ -51,7 +51,7 @@ class Deployer {
   }
 
   'push-github-articles' (comment) {
-    if (!comment) var comment = "For Deployment " + (new Date())
+    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
     var branch = 'articles'
     return [
       `cd ${this.root}`,
@@ -63,7 +63,7 @@ class Deployer {
   }
 
   'push-github-master' (comment) {
-    if (!comment) var comment = "For Deployment " + (new Date())
+    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
     var branch = 'master'
     return [
       `cd ${this.root}/public`,
