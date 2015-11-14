@@ -10,7 +10,7 @@ class Deployer {
   // branch 分支的名称
   // dirname 站点（blog）的路径在哪里
   constructor() {
-    if(!dirname) var dirname = __dirname
+    if (!dirname) var dirname = __dirname
     this.root = dirname
   }
 
@@ -67,8 +67,7 @@ class Deployer {
     return [
       `cd ${this.root}/public`,
       // `git checkout ${branch}`,
-      `git add .`,
-      ['git', 'commit', '-m', `"${comment}"`],
+      `git add .`, ['git', 'commit', '-m', `"${comment}"`],
       `git push origin ${branch}:${branch}`
     ]
   }
