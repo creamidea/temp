@@ -24,6 +24,11 @@ class Deployer {
 
   start() {
     // console.log(process.argv)
+    if (process.argv.length > 3) {
+      console.log('command error!');
+      console.log('e.g. node deploy.js "Just for fun"');
+      process.exit(0)
+    }
     var comment = process.argv[2]
     this['exec-sh'](this['push-github-master'](comment))
     this['exec-sh'](this['push-github-articles'](comment))
