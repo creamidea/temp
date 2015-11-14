@@ -14,19 +14,11 @@ class Deployer {
     this.root = dirname
   }
 
-  command(c) {
-    if (this.path) {
-      this[c]()
-    } else {
-      console.log('This path MUST be here.')
-    }
-  }
-
   start() {
-    console.log(process.argv)
+    // console.log(process.argv)
     if (process.argv.length > 3) {
-      console.log('command error!');
-      console.log('e.g. node deploy.js "Just for fun"');
+      console.log('COMMAND error! The comment must be wrapped by ""');
+      console.log('e.g. $ node deploy.js "The comment you want to input."');
       process.exit(0)
     }
     var comment = process.argv[2]
