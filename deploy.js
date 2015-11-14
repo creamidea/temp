@@ -69,7 +69,7 @@ class Deployer {
     return [
       `cd ${this.root}/public`,
       `git add .`,
-      `git commit -m "${comment}"`,
+      ['git', 'commit', '-m', `"${comment}"`],
       `git push origin master`
     ]
   }
