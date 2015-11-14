@@ -26,7 +26,7 @@ class Deployer {
     // console.log(process.argv)
     var comment = process.argv[2]
     this['exec-sh'](this['push-github-master'](comment))
-    this['exec-sh'](this['push-github-articles'](commnt))
+    this['exec-sh'](this['push-github-articles'](comment))
   }
 
   'exec-sh' (sh) {
