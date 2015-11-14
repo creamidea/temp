@@ -23,7 +23,7 @@ class Deployer {
   }
 
   start() {
-    // console.log(process.argv)
+    console.log(process.argv)
     if (process.argv.length > 3) {
       console.log('command error!');
       console.log('e.g. node deploy.js "Just for fun"');
