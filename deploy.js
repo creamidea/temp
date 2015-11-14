@@ -13,15 +13,18 @@ class Deployer {
   }
 
   start() {
-    // console.log(process.argv)
-    if (process.argv.length > 3) {
-      console.log('COMMAND error! The comment must be wrapped by ""');
-      console.log('e.g. $ node deploy.js "The comment you want to input."');
-      process.exit(0)
-    }
+    console.log(process.argv)
     var comment = process.argv[2]
-    this['exec-sh'](this['push-github-master'](comment))
-    this['exec-sh'](this['push-github-articles'](comment))
+    var branch = process.argv[3]
+    if (this[`push-github-${branch}`]) {
+      this['exec-sh'](this[`push-github-${branch}`](comment))
+    } else {
+      if (process.argv.length > 3) {
+        console.log('COMMAND error! The comment must be wrapped by ""');
+        console.log('e.g. $ node deploy.js "The comment you want to input."');
+        process.exit(0)
+      }
+    }
   }
 
   'exec-sh' (sh) {
@@ -73,8 +76,6 @@ class Deployer {
 }
 
 (function() {
-  'use strict'
-  // console.log = function () {}
   var d = new Deployer
   d.start()
 })()
