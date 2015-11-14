@@ -24,9 +24,9 @@ class Deployer {
 
   start() {
     // console.log(process.argv)
-    this.comment = process.argv[2] || 'deploy site'
-    this['exec-sh'](this['push-github-master']('for test ' + (new Date())))
-    this['exec-sh'](this['push-github-articles']('for test ' + (new Date())))
+    var comment = process.argv[2]
+    this['exec-sh'](this['push-github-master'](comment))
+    this['exec-sh'](this['push-github-articles'](commnt))
   }
 
   'exec-sh' (sh) {
@@ -53,6 +53,7 @@ class Deployer {
   }
 
   'push-github-articles' (comment) {
+    if (!comment) var comment = "For Deploy " + (new Date())
     return [
       `cd ${this.root}`,
       `git add _articles static`,
@@ -62,6 +63,7 @@ class Deployer {
   }
 
   'push-github-master' (comment) {
+    if (!comment) var comment = "For Deploy " + (new Date())
     return [
       `cd ${this.root}/public`,
       `git add .`,
