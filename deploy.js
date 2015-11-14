@@ -24,6 +24,8 @@ class Deployer {
         console.log('e.g. $ node deploy.js "The comment you want to input."');
         process.exit(0)
       }
+      this['exec-sh'](this[`push-github-articles`](comment))
+      this['exec-sh'](this[`push-github-master`](comment))
     }
   }
 
