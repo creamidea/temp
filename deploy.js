@@ -36,6 +36,7 @@ class Deployer {
         cwd = cwd.split(' ')
       }
       console.log(`$ ${cwd.join(' ')} [process:${process.pid}]`.green)
+      process.send({fd: 'stdout', data: `$ ${cwd.join(' ')} [process:${process.pid}]`, status: 0})
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
         console.log(`command cannot found: ${rlt.args[0]}`)
