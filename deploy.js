@@ -30,7 +30,7 @@ class Deployer {
     var dirname = sh.shift()
     sh.every(function(cwd) {
       process.chdir(dirname)
-      console.log(`Now in ${dirname}`)
+      // console.log(`Now in ${dirname}`)
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
       }
