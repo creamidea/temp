@@ -45,7 +45,7 @@ wss.on('connection', function connection(ws) {
       var child2 = child_process.fork(__dirname + '/deploy.js', ['master', '.', message.argv[0]])
       child1.on('message', function (message) {
         ws.send(JSON.stringify(message))
-      }).on('SIGINT', function () {
+      }).on('exit', function () {
         console.log('==============')
         ws.send(`Process:${this.pid} published ${this.spawnargs[2]} over.`)
       })
