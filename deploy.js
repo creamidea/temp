@@ -10,7 +10,6 @@
 'use strict'
 var spawnSync = require('child_process').spawnSync
 var util = require('util');
-util.inspect.styles.date = 'lightmagenta';
 
 class Deployer {
   // branch 分支的名称
@@ -36,7 +35,7 @@ class Deployer {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
       }
-      console.log(util.inspect({m:`$ ${cwd.join(' ')} [process:${process.pid}]`}, {color: true}))
+      console.log(util.inspect(`$ ${cwd.join(' ')} [process:${process.pid}]`, {color: true}))
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
         console.log(`command cannot found: ${rlt.args[0]}`)
