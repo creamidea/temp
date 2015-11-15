@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     ws.onmessage = function(message) {
-      console.log(message)
+      console.log(message.data)
     }
 
     addPublishBtn(body, content, ws)
