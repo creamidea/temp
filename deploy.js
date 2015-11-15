@@ -9,7 +9,7 @@
 
 'use strict'
 var spawnSync = require('child_process').spawnSync
-var util = require('util');
+var colors = require('colors')
 
 class Deployer {
   // branch 分支的名称
@@ -35,7 +35,7 @@ class Deployer {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
       }
-      console.log(`$ ${cwd.join(' ')} [process:${process.pid}]`)
+      console.log(`$ ${cwd.join(' ')} [process:${process.pid}]`.green)
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
         console.log(`command cannot found: ${rlt.args[0]}`)
