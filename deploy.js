@@ -22,10 +22,13 @@ class Deployer {
     // console.log(process.argv)
     var comment = process.argv[2]
     var branch = process.argv[3]
-    this['exec-sh'](this['git-commit-and-push'](branch, '.', comment))
+    var files = process.argv[4]
+    this['exec-sh'](this['git-add-commit-push'](branch, files, comment))
   }
 
   'exec-sh' (sh) {
+    var dirname = sh.shift()
+    process.chdir(dirname)
     sh.every(function(cwd) {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
@@ -48,46 +51,27 @@ class Deployer {
     })
   }
 
-  'git-commit-and-push' (branch, files, comment) {
+  'git-add-commit-push' (branch, files, comment) {
+    var dirname = this.root
+
     if (!files || files === 'undefined') {
       console.log('git add files none.')
       process.exit(0)
     }
     if (!branch || branch === 'undefined') var branch = "master"
     if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
+    if (branch === 'master') dirname = this.root + '/public'
+
     return [
-      'git status',
+      dirname,
+      // 'git status',
       // `git checkout ${branch}`,
       // `git add _articles static deploy.js README.org _draft favicon.ico`, // TODO: here will be contain deploy.js
       `git add ${files}`, // TODO: here will be contain deploy.js
-      ['git', 'commit', '-m', `"${comment}"`],
+      ['git', 'commit', '-m', comment],
       `git push origin ${branch}:${branch}`
     ]
   }
-
-  'push-github-articles' (comment) {
-    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
-    var branch = 'articles'
-    return [
-      `cd ${this.root}`,
-      // `git checkout ${branch}`,
-      `git add _articles static deploy.js README.org _draft favicon.ico`, // TODO: here will be contain deploy.js
-      ['git', 'commit', '-m', `"${comment}"`],
-      `git push origin ${branch}:${branch}`
-    ]
-  }
-
-  'push-github-master' (comment) {
-    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
-    var branch = 'master'
-    return [
-      `cd ${this.root}/public`,
-      // `git checkout ${branch}`,
-      `git add .`, ['git', 'commit', '-m', `"${comment}"`],
-      `git push origin ${branch}:${branch}`
-    ]
-  }
-
 }
 
 (function() {
