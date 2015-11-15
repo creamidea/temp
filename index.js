@@ -50,16 +50,16 @@ wss.on('connection', function connection(ws) {
 
     // TODO: 后面如果要做扩展的时候在搞
     if (message.command === 'publish') {
-      var child1 = child_process.fork(__dirname + '/deploy.js', ['articles', '_articles _draft static README.org favicon.ico bin.js deploy.js', message.argv[0]])
+      var child1 = child_process.fork(__dirname + '/deploy.js', ['articles', '_articles _draft static README.org favicon.ico index.js bin.js deploy.js', message.argv[0]])
       var child2 = child_process.fork(__dirname + '/deploy.js', ['master', '.', message.argv[0]])
       child1.on('message', function (message) {
         ws.send(JSON.stringify(message))
-      }).on('exit', function () {
+      }).on('SIGINT', function () {
         ws.send(`Process:${this.pid} published ${this.spawnargs[2]} over.`)
       })
       child2.on('message', function (message) {
         ws.send(JSON.stringify(message))
-      }).on('exit', function () {
+      }).on('SIGINT', function () {
         ws.send(`Process:${this.pid} published ${this.spawnargs[2]} over.`)
       })
     }
