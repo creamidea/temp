@@ -13,7 +13,7 @@ class Deployer {
   }
 
   start() {
-    console.log(process.argv)
+    // console.log(process.argv)
     var comment = process.argv[2]
     var branch = process.argv[3]
     if (this[`push-github-${branch}`]) {
