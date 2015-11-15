@@ -1,0 +1,32 @@
+{
+  "name": "oe-nk",
+  "version": "1.0.0",
+  "description": "一个简单的博客预览发布系统",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creamidea/temp.git"
+  },
+  "keywords": [
+    "koa",
+    "emacs",
+    "org-mode",
+    "jekyll",
+    "blog",
+    "node"
+  ],
+  "author": "junjia ni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/creamidea/temp/issues"
+  },
+  "homepage": "https://github.com/creamidea/temp#readme",
+  "dependencies": {
+    "koa": "^1.1.2",
+    "koa-router": "^5.2.3",
+    "koa-static": "^1.5.2"
+  }
+}
