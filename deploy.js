@@ -40,7 +40,7 @@ class Deployer {
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
         console.log(`command cannot found: ${rlt.args[0]}`.red)
-        process.send({fd: 'stderr', hint: 'Please lookup in Server', status: 2})
+        process.send({fd: 'stderr', hint: 'The command return status:null. Please lookup in Server', status: 2})
         process.exit(2)
       }
       if (rlt.status === 0) {
@@ -51,7 +51,7 @@ class Deployer {
       } else {
         if (rlt.stderr) {
           console.log(rlt.stderr.toString().red)
-          process.send({fd: 'stderr', hint: 'Please lookup in Server', status: 2})
+          process.send({fd: 'stderr', hint: `The command return status:${rlt.status}. Please lookup in Server`, status: 2})
         }
         if (rlt.stdout) process.send({fd: 'stdout', hint: rlt.stdout.toString(), status: rlt.status})
         return false
