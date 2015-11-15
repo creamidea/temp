@@ -46,12 +46,11 @@ wss.on('connection', function connection(ws) {
       child1.on('message', function (message) {
         ws.send(JSON.stringify(message))
       }).on('exit', function () {
-        console.log('==============', ws)
         ws.send(`Process:${this.pid} published ${this.spawnargs[2]} over.`)
       })
       child2.on('message', function (message) {
         ws.send(JSON.stringify(message))
-      }).on('SIGINT', function () {
+      }).on('exit', function () {
         ws.send(`Process:${this.pid} published ${this.spawnargs[2]} over.`)
       })
     }
