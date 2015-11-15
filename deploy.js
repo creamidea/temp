@@ -4,11 +4,13 @@
  * 这个是部署脚本，并不用于解决冲突。
  * 一般情况下，public中的文件是全量同步的，并不会有冲突
  * 而_articles中的文件是有可能冲突的，当冲突发生时，需要人工手动解决。
+ * 关于node变换执行命令的位置 https://nodejs.org/api/process.html#process_process_chdir_directory
  */
 
 'use strict'
 var spawnSync = require('child_process').spawnSync
-
+var util = require('util');
+util.inspect.styles.date = 'lightmagenta';
 
 class Deployer {
   // branch 分支的名称
