@@ -20,9 +20,9 @@ class Deployer {
 
   start() {
     // console.log(process.argv)
-    var comment = process.argv[2]
-    var branch = process.argv[3]
-    var files = process.argv[4]
+    var branch = process.argv[2]
+    var files = process.argv[3]
+    var comment = process.argv[4]
     this['exec-sh'](this['git-add-commit-push'](branch, files, comment))
   }
 
