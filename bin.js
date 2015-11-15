@@ -13,9 +13,9 @@ if (process.argv.length > 3) {
   child1 = child_process.fork(__dirname + '/deploy.js', ['articles', '_articles _draft static README.org  favicon.ico bin.js deploy.js', process.argv[2]])
   child2 = child_process.fork(__dirname + '/deploy.js', ['master', '.', process.argv[2]])
   child1.on('exit', function() {
-    console.log(`Process:${process.pid} published over.`);
+    console.log(`Process:${this.pid} published over.`);
   })
   child2.on('exit', function() {
-    console.log(`Process:${process.pid} published over.`);
+    console.log(`Process:${this.pid} published over.`);
   })
 }
