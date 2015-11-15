@@ -13,7 +13,7 @@ function Publish(body, content) {
     var data = JSON.parse(message.data)
     require(['oenkace'], function(editor) {
       editor.insert(data.stdout+'\n')
-      editorContainer.style.position = 'absolute'
+      editorContainer.style.position = 'fixed'
     })
   }
 
