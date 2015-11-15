@@ -57,7 +57,7 @@ class Deployer {
     var dirname = this.root
 
     if (!files || files === 'undefined') {
-      console.log('git add files none.')
+      console.log('git add files none.'.red)
       process.exit(0)
     }
     if (!branch || branch === 'undefined') var branch = "master"
