@@ -44,6 +44,7 @@ class Deployer {
       if (rlt.status === 0) {
         var stdout = rlt.stdout.toString()
         console.log(stdout)
+        process.send(stdout)
         return true
       } else {
         if (rlt.stderr) console.log(rlt.stderr.toString())
