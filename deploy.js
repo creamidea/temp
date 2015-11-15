@@ -44,11 +44,11 @@ class Deployer {
       if (rlt.status === 0) {
         var stdout = rlt.stdout.toString()
         // console.log(stdout)
-        process.send(stdout)
+        if (stdout) process.send({fd: 'stdout', data: stdout})
         return true
       } else {
-        if (rlt.stderr) process.send(rlt.stderr.toString())
-        if (rlt.stdout) process.send(rlt.stdout.toString())
+        if (rlt.stderr) process.send({fd: 'stderr', data: rlt.stderr.toString()})
+        // if (rlt.stdout) process.send({fd: 'stdout', data: rlt.stdout.toString()})
         return false
       }
     })
