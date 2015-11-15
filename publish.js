@@ -1,26 +1,24 @@
-'use strict'
-
 function Publish(body, content) {
-  var btnPublish, editorContainer, ws
-  ws = createWebsocket()
-  ws.onopen = function(event) {
-
-  }
-  ws.onclose = function() {
-    body.innerHTML = '<h1>WebSocket Disconnected!</h1>'
-  }
-  ws.onmessage = function(message) {
-    var data = JSON.parse(message.data)
-    require(['oenkace'], function(editor) {
-      editor.insert(data.stdout+'\n')
-      editorContainer.style.position = 'fixed'
-    })
-  }
-
   loadAce(body)
-  editorContainer = createEditorContainer(body)
-  btnPublish = addPublishBtn(body, content, ws)
+  body.addEventListener('ready.ace', function() {
+    require(['oenkace'], function(editor) {
 
+      var ws
+      ws = createWebsocket()
+      ws.onopen = function(event) {
+
+      }
+      ws.onclose = function() {
+        body.innerHTML = '<h1>WebSocket Disconnected!</h1>'
+      }
+      ws.onmessage = function(message) {
+        var data = JSON.parse(message.data)
+        editor.insert(data.stdout + '\n')
+      }
+      addPublishBtn(body, content, ws)
+
+    })
+  }, false)
 }
 
 function createWebsocket() {
@@ -36,18 +34,12 @@ function createWebsocket() {
   return ws
 }
 
-function createEditorContainer (body) {
-  var div = document.createElement('div')
-  div.id = 'editor'
-  body.appendChild(div)
-  return div
-}
-
 function addPublishBtn(body, content, ws) {
   var btn = document.createElement('button')
   btn.innerText = 'Publish'
   btn.id = 'publish'
   btn.onclick = function(e) {
+    document.getElementById('editor').style.position = 'fixed'
     var message = {
       command: 'publish',
       argv: []
@@ -70,6 +62,10 @@ function loadAce(body) {
       }
     })
 
+    var div = document.createElement('div')
+    div.id = 'editor'
+    body.appendChild(div)
+
     define('oenkace', ['ace/ace'], function(ace, langtools) {
       var editor = ace.edit('editor')
       editor.setOptions({
@@ -83,11 +79,15 @@ function loadAce(body) {
       return editor
     })
 
+    var aceReadyEvent = new Event('ready.ace')
+    body.dispatchEvent(aceReadyEvent)
   }
   body.appendChild(s)
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  'use strict'
 
   var pathname = window.location.pathname
   var body = document.getElementsByTagName('body')[0]
