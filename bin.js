@@ -16,6 +16,6 @@ if (process.argv.length > 3) {
     console.log(`Process:${this.pid} published over.`);
   })
   child2.on('exit', function() {
-    console.log(`Process:${this.pid} published over.`);
+    console.log(`Process:${this.pid} published ${this.spawnargs[2]} over.`);
   })
 }
