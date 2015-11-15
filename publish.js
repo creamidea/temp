@@ -12,7 +12,6 @@ function Publish(body, content) {
       }
       ws.onmessage = function(message) {
         var data = JSON.parse(message.data)
-        console.log(data)
         editor.insert(data.stdout + '\n')
       }
       addPublishBtn(body, content, ws)
