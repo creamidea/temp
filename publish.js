@@ -73,7 +73,7 @@ function loadAce(body) {
       })
       editor.$blockScrolling = Infinity
       editor.setTheme("ace/theme/ambiance")
-      editor.session.setMode("ace/mode/powershell")
+      editor.session.setMode("ace/mode/sh")
       return editor
     })
 
