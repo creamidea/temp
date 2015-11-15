@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 'use strict'
-
 var spawnSync = require('child_process').spawnSync
+
 
 class Deployer {
   // branch 分支的名称
