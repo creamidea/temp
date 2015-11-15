@@ -2,7 +2,6 @@ function Publish(body, content) {
   loadAce(body)
   body.addEventListener('ready.ace', function() {
     require(['oenkace'], function(editor) {
-
       var ws
       ws = createWebsocket()
       ws.onopen = function(event) {
@@ -16,7 +15,6 @@ function Publish(body, content) {
         editor.insert(data.stdout + '\n')
       }
       addPublishBtn(body, content, ws)
-
     })
   }, false)
 }
@@ -39,7 +37,7 @@ function addPublishBtn(body, content, ws) {
   btn.innerText = 'Publish'
   btn.id = 'publish'
   btn.onclick = function(e) {
-    document.getElementById('editor').style.position = 'fixed'
+    document.getElementById('editor').style.display = 'block'
     var message = {
       command: 'publish',
       argv: []
