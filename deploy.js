@@ -39,8 +39,9 @@ class Deployer {
       process.send({fd: 'stdout', hint: `$ ${cwd.join(' ')} [process:${process.pid}]`, status: 0})
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
-        // console.log(`command cannot found: ${rlt.args[0]}`)
-        process.exit(1)
+        console.log(`command cannot found: ${rlt.args[0]}`.red)
+        process.send({fd: 'stderr', hint: 'Please lookup in Server', status: 2})
+        process.exit(2)
       }
       if (rlt.status === 0) {
         var stdout = rlt.stdout.toString()
@@ -48,7 +49,10 @@ class Deployer {
         if (stdout) process.send({fd: 'stdout', hint: stdout, status: 0})
         return true
       } else {
-        // if (rlt.stderr) process.send({fd: 'stderr', data: rlt.stderr.toString()})
+        if (rlt.stderr) {
+          console.log(rlt.stderr.toString().red)
+          process.send({fd: 'stderr', hint: 'Please lookup in Server', status: 2})
+        }
         if (rlt.stdout) process.send({fd: 'stdout', hint: rlt.stdout.toString(), status: rlt.status})
         return false
       }
