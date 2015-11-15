@@ -13,7 +13,7 @@ if (process.argv.length > 3) {
   child1 = child_process.fork(__dirname + '/deploy.js', ['articles', '_articles static bin.js deploy.js README.org _draft favicon.ico', process.argv[2]])
   child2 = child_process.fork(__dirname + '/deploy.js', ['master', '.', process.argv[2]])
   child1.on('exit', function() {
-    // console.log(arguments, this);
+    console.log(arguments, this);
   })
   child2.on('exit', function() {
 

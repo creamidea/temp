@@ -60,7 +60,7 @@ class Deployer {
       process.exit(0)
     }
     if (!branch || branch === 'undefined') var branch = "master"
-    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
+    if (!comment || comment === 'undefined') var comment = "Publish at " + (new Date())
     if (branch === 'master') dirname = this.root + '/public'
 
     return [
