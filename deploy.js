@@ -39,7 +39,7 @@ class Deployer {
       process.send({fd: 'stdout', data: `$ ${cwd.join(' ')} [process:${process.pid}]`, status: 0})
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
-        console.log(`command cannot found: ${rlt.args[0]}`)
+        // console.log(`command cannot found: ${rlt.args[0]}`)
         process.exit(1)
       }
       if (rlt.status === 0) {
