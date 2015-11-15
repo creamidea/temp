@@ -40,8 +40,8 @@ class Deployer {
         process.exit(1)
       }
       if (rlt.status === 0) {
-        // var stdout = rlt.stdout.toString()
-        // console.log(stdout)
+        var stdout = rlt.stdout.toString()
+        console.log(stdout)
         return true
       } else {
         if (rlt.stderr) console.log(rlt.stderr.toString())
