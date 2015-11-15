@@ -12,12 +12,12 @@ function Publish(body, content) {
   ws.onmessage = function(message) {
     var data = JSON.parse(message.data)
     require(['oenkace'], function(editor) {
-      editor.insert(data.stdout)
+      editor.insert(data.stdout+'\n')
       editorContainer.style.position = 'absolute'
     })
   }
 
-  loadRequirejs(body)
+  loadAce(body)
   editorContainer = createEditorContainer(body)
   btnPublish = addPublishBtn(body, content, ws)
 
@@ -58,7 +58,7 @@ function addPublishBtn(body, content, ws) {
   return btn
 }
 
-function loadRequirejs(body) {
+function loadAce(body) {
   var s = document.createElement('script')
   s.src = '/requirejs/require.js'
   s.type = 'text\/javascript'
