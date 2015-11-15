@@ -51,9 +51,9 @@ class Deployer {
       } else {
         if (rlt.stderr) {
           console.log(rlt.stderr.toString())
-          process.send({fd: 'stderr', hint: `The command return status:${rlt.status}. Please lookup in Server`, status: 2})
+          process.send({fd: 'stderr', hint: `The command return status:${rlt.status}. The stdout show: ${rlt.stdout.toString()}`, status: 2})
         }
-        if (rlt.stdout) process.send({fd: 'stdout', hint: rlt.stdout.toString(), status: rlt.status})
+        // else if (rlt.stdout) process.send({fd: 'stdout', hint: rlt.stdout.toString(), status: rlt.status})
         return false
       }
     })
