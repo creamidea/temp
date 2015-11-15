@@ -29,6 +29,7 @@ class Deployer {
   'exec-sh' (sh) {
     var dirname = sh.shift()
     process.chdir(dirname)
+    console.log(`Now in ${dirname}`);
     sh.every(function(cwd) {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
