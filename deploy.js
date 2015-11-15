@@ -35,7 +35,7 @@ class Deployer {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
       }
-      console.log(`$ ${cwd.join(' ')} [process:${process.pid}]`.green)
+      // console.log(`$ ${cwd.join(' ')} [process:${process.pid}]`.green)
       process.send({fd: 'stdout', data: `$ ${cwd.join(' ')} [process:${process.pid}]`, status: 0})
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
