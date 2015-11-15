@@ -46,12 +46,12 @@ wss.on('connection', function connection(ws) {
       child1.on('message', function (message) {
         ws.send(JSON.stringify(message))
       }).on('exit', function () {
-        ws.send({stdout: `Process:${this.pid} published ${this.spawnargs[2]} over.`, status: 0})
+        ws.send(JSON.stringify({stdout: `Process:${this.pid} published ${this.spawnargs[2]} over.`, status: 0}))
       })
       child2.on('message', function (message) {
         ws.send(JSON.stringify(message))
       }).on('exit', function () {
-        ws.send({stdout: `Process:${this.pid} published ${this.spawnargs[2]} over.`, status: 0})
+        ws.send(JSON.stringify({stdout: `Process:${this.pid} published ${this.spawnargs[2]} over.`, status: 0}))
       })
     }
 
