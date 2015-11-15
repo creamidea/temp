@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/*
+ * 这个是部署脚本，并不用于解决冲突。
+ * 一般情况下，public中的文件是全量同步的，并不会有冲突
+ * 而_articles中的文件是有可能冲突的，当冲突发生时，需要人工手动解决。
+ */
+
 'use strict'
 var spawnSync = require('child_process').spawnSync
 
@@ -16,17 +22,7 @@ class Deployer {
     // console.log(process.argv)
     var comment = process.argv[2]
     var branch = process.argv[3]
-    if (this[`push-github-${branch}`]) {
-      this['exec-sh'](this[`push-github-${branch}`](comment))
-    } else {
-      if (process.argv.length > 3) {
-        console.log('COMMAND error! The comment must be wrapped by ""');
-        console.log('e.g. $ node deploy.js "The comment you want to input."');
-        process.exit(0)
-      }
-      this['exec-sh'](this[`push-github-articles`](comment))
-      this['exec-sh'](this[`push-github-master`](comment))
-    }
+    this['exec-sh'](this['git-commit-and-push'](branch, '.', comment))
   }
 
   'exec-sh' (sh) {
@@ -50,6 +46,23 @@ class Deployer {
         return false
       }
     })
+  }
+
+  'git-commit-and-push' (branch, files, comment) {
+    if (!files || files === 'undefined') {
+      console.log('git add files none.')
+      process.exit(0)
+    }
+    if (!branch || branch === 'undefined') var branch = "master"
+    if (!comment || comment === 'undefined') var comment = "For Deployment " + (new Date())
+    return [
+      'git status',
+      // `git checkout ${branch}`,
+      // `git add _articles static deploy.js README.org _draft favicon.ico`, // TODO: here will be contain deploy.js
+      `git add ${files}`, // TODO: here will be contain deploy.js
+      ['git', 'commit', '-m', `"${comment}"`],
+      `git push origin ${branch}:${branch}`
+    ]
   }
 
   'push-github-articles' (comment) {
