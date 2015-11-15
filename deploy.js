@@ -34,7 +34,7 @@ class Deployer {
       if (typeof cwd === 'string' || cwd instanceof String) {
         cwd = cwd.split(' ')
       }
-      console.log(`-> ${cwd.join(' ')}`);
+      console.log(`$ ${cwd.join(' ')}`);
       var rlt = spawnSync(cwd.shift(), cwd)
       if (rlt.status === null) {
         console.log(`command cannot found: ${rlt.args[0]}`)
